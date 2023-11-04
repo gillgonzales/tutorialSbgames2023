@@ -43,6 +43,9 @@ jet.position.y = -.2
 jet.shots = new Array()
 scene.add(jet)
 
+const light = new THREE.AmbientLight(0xffffff, 10);
+scene.add(light);
+
 const gameLoop=()=>{
   skyBox.rotation.y += .0001
   skyBox.position.z += .0001
