@@ -1,5 +1,8 @@
 import * as THREE from 'three'
 import { createSkyBox } from './skybox'
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
+
 
 const renderer = new THREE.WebGLRenderer({ antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
@@ -19,6 +22,26 @@ camera.position.set(0, .25, 2)
 const skyBox = await createSkyBox('bluesky', 500)
 skyBox.position.y = .25
 scene.add(skyBox)
+
+const jetPath = 'models/f15c/'
+const mtlFile = 'f15c.mtl'
+const objFile = 'f15c.obj'
+
+const manager = new THREE.LoadingManager();
+const mtlLoader = new MTLLoader(manager);
+const objLoader = new OBJLoader();
+
+mtlLoader.setPath(jetPath)
+objLoader.setPath(jetPath)
+
+objLoader.setMaterials(await mtlLoader.loadAsync(mtlFile))
+const jet = await objLoader.loadAsync(objFile)
+const jetJoystick = { x: null, y: null }
+
+jet.scale.setScalar(.5)
+jet.position.y = -.2
+jet.shots = new Array()
+scene.add(jet)
 
 const gameLoop=()=>{
   skyBox.rotation.y += .0001
