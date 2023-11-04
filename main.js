@@ -14,3 +14,9 @@ const camera = new THREE.PerspectiveCamera(
   1000 //Plano distante
 );
 camera.position.set(0, .25, 2)
+
+const gameLoop=()=>{
+    renderer.render(scene, camera)
+	requestAnimationFrame(gameLoop)
+}
+gameLoop()
