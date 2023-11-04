@@ -21,6 +21,8 @@ skyBox.position.y = .25
 scene.add(skyBox)
 
 const gameLoop=()=>{
+  skyBox.rotation.y += .0001
+  skyBox.position.z += .0001
   renderer.render(scene, camera)
 	requestAnimationFrame(gameLoop)
 }
