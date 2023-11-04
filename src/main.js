@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { createSkyBox } from './skybox'
 
 const renderer = new THREE.WebGLRenderer({ antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
@@ -15,8 +16,12 @@ const camera = new THREE.PerspectiveCamera(
 );
 camera.position.set(0, .25, 2)
 
+const skyBox = await createSkyBox('bluesky', 500)
+skyBox.position.y = .25
+scene.add(skyBox)
+
 const gameLoop=()=>{
-    renderer.render(scene, camera)
+  renderer.render(scene, camera)
 	requestAnimationFrame(gameLoop)
 }
 gameLoop()
