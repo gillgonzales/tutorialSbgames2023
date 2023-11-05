@@ -135,7 +135,7 @@ function createEnemies() {
     enemy.position.x *= horizontalLimit
     
     let hitArea = hitSphere.clone()
-    hitArea.radius * 2
+    hitArea.radius = hitArea.radius * 2
 
     let enemyClone = {
       model: enemy.clone(),
@@ -162,6 +162,7 @@ function moveEnemy(enemy) {
       velocity += .24
     }
     enemy.model.position.z += velocity
+    enemy.hit.center.copy(enemy.model.position)
   }
 }
 
