@@ -101,6 +101,24 @@ function shooting() {
   }
 }
 
+function updateShots() {
+  if (jet.shots.length == 0) return 0
+  jet.shots.forEach((shot) => {
+    shot.model.position.z -= 1
+    shot.model.position.x += -shot.rx / 2
+    shot.model.position.y += shot.ry / 5
+    shot.hit.center.copy(shot.model.position)
+  })
+
+  jet.shots = jet.shots.filter((shot) => {
+    if (shot.model.position.z < -150) {
+      scene.remove(shot.model)
+      return false
+    }
+    return true
+  })
+}
+
 function createEnemies() {
   let distance = 5
   let horizontalLimit = 5
@@ -175,7 +193,7 @@ const gameLoop = () => {
   skyBox.rotation.y += .0001
   skyBox.position.z += .0001
   moveJet()
-  enemies.forEach((e)=>moveEnemy(e))
+  enemies.forEach((e) => moveEnemy(e))
   renderer.render(scene, camera)
   requestAnimationFrame(gameLoop)
 }
