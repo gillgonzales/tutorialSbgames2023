@@ -62,8 +62,26 @@ const enemy = await enemyObjLoader.loadAsync(objFile)
 enemy.scale.setScalar(.5)
 enemy.position.y = .4
 enemy.rotateY(3.14)
-enemy.position.z = -1
-scene.add(enemy)
+// enemy.position.z = -1
+// scene.add(enemy)
+
+const enemies = createEnemies()
+
+function createEnemies() {
+  let distance = 5
+  let horizontalLimit = 5
+  return Array.from({ length: 5 }).map(() => {
+    enemy.position.z = -(Math.random() * distance + distance)
+    enemy.position.x = (Math.random() * (Math.random() > .5 ? 1 : -1));
+    enemy.position.x *= horizontalLimit
+    let enemyClone = {
+      model: enemy.clone(),
+      dead: false
+    }
+    scene.add(enemyClone.model)
+    return enemyClone
+  })
+}
 
 function updateJoystick(event) {
   if (!event.buttons) {
@@ -101,12 +119,12 @@ function moveJet() {
   }
 }
 
-const gameLoop=()=>{
+const gameLoop = () => {
   skyBox.rotation.y += .0001
   skyBox.position.z += .0001
   moveJet()
   renderer.render(scene, camera)
-	requestAnimationFrame(gameLoop)
+  requestAnimationFrame(gameLoop)
 }
 
 window.addEventListener('mousemove', updateJoystick)
