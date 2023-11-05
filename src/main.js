@@ -126,8 +126,13 @@ function createEnemies() {
     enemy.position.z = -(Math.random() * distance + distance)
     enemy.position.x = (Math.random() * (Math.random() > .5 ? 1 : -1));
     enemy.position.x *= horizontalLimit
+    
+    let hitArea = hitSphere.clone()
+    hitArea.radius * 2
+
     let enemyClone = {
       model: enemy.clone(),
+      hit: hitArea,
       dead: false
     }
     scene.add(enemyClone.model)
