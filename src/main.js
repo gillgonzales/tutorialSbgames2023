@@ -50,6 +50,16 @@ const plight = new THREE.PointLight(0xffffff, 500, 50,.5);
 plight.position.set(0, 25, 10);
 scene.add(plight);
 
+function updateJoystick(event) {
+  if (!event.buttons) {
+    jetJoystick.x = event.clientX
+    jetJoystick.y = event.clientY
+  } else {
+    jetJoystick.x = null
+    jetJoystick.y = null
+  }
+}
+
 const gameLoop=()=>{
   skyBox.rotation.y += .0001
   skyBox.position.z += .0001
