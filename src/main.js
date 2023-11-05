@@ -7,7 +7,9 @@ import TextureAnimator from './textureAnimator'
 const QTD_ENEMIES = 5
 const HIT_RADIUS = .125
 let TOTAL_SHOTS = 1000
-let GAME_PAUSED = false
+let GAME_OVER = false
+let LOST_ENEMIES = 0
+let SCORE = 0
 
 const renderer = new THREE.WebGLRenderer({ antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
@@ -246,11 +248,11 @@ const gameLoop = () => {
     if(!e.dead && shootDown(e)){
       console.error("COLIDIU!!!")
       showEnemyHit(e)
-      // GAME_PAUSED = true;
+      // GAME_OVER = true;
     }
   })
   renderer.render(scene, camera)
-  !GAME_PAUSED && requestAnimationFrame(gameLoop)
+  !GAME_OVER && requestAnimationFrame(gameLoop)
 }
 
 window.addEventListener('mousemove', updateJoystick)
