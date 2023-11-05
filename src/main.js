@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { createSkyBox } from './skybox'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
+import TextureAnimator from './textureAnimator'
 
 const QTD_ENEMIES = 5
 const HIT_RADIUS = .125
@@ -132,11 +133,11 @@ function createEnemies() {
   let distance = 5
   let horizontalLimit = 5
   return Array.from({ length: QTD_ENEMIES }).map(() => {
-  
-    let explodeMaterial = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
-    let exploGeo = new THREE.PlaneGeometry(4, 4, 1, 1);
     let texture = explosionTexture.clone();
     texture.needsUpdate = true;
+    let explodeMaterial = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
+    let exploGeo = new THREE.PlaneGeometry(4, 4, 1, 1);
+    
 
     enemy.position.z = -(Math.random() * distance + distance)
     enemy.position.x = (Math.random() * (Math.random() > .5 ? 1 : -1));
@@ -159,6 +160,15 @@ function createEnemies() {
   })
 }
 
+function showEnemyHit(enemy) {
+  enemy.explosion.model.position.copy(enemy.model.position.clone())
+  explosionlight.position.copy(enemy.model.position.clone())
+  enemy.explosion.model.scale.setScalar(1.5)
+  scene.add(explosionlight);
+  scene.add(enemy.explosion.model);
+  enemy.dead = true
+}
+
 function moveEnemy(enemy) {
   let velocity = .16
   let distance = enemy.model.position.z
@@ -175,6 +185,18 @@ function moveEnemy(enemy) {
     }
     enemy.model.position.z += velocity
     enemy.hit.center.copy(enemy.model.position)
+  }else {
+    enemy.model.position.z = 1000
+    enemy.explosion.model.position.z += .05
+    enemy.explosion.model.position.y -= .005
+    if (enemy.explosion.sprite.currentTile < enemy.explosion.sprite.numberOfTiles - 1) {
+      enemy.explosion.sprite.update(20)
+    } else {
+      scene.remove(enemy.explosion.model);
+      enemy.dead = false
+      enemy.model.position.z = -(Math.random() * 100 + 100)
+      enemy.explosion.sprite.reset()
+    }
   }
 }
 
@@ -223,7 +245,8 @@ const gameLoop = () => {
     moveEnemy(e)
     if(!e.dead && shootDown(e)){
       console.error("COLIDIU!!!")
-      GAME_PAUSED = true;
+      showEnemyHit(e)
+      // GAME_PAUSED = true;
     }
   })
   renderer.render(scene, camera)
