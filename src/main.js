@@ -6,6 +6,7 @@ import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 const QTD_ENEMIES = 5
 const HIT_RADIUS = .125
 let TOTAL_SHOTS = 1000
+let GAME_PAUSED = false
 
 const renderer = new THREE.WebGLRenderer({ antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
@@ -99,6 +100,11 @@ function shooting() {
   } else {
     console.warn("ACABOU A MUNIÇÃO!!!")
   }
+}
+
+function shootDown(enemy) {
+  if (jet.shots.length == 0) return false;
+  return jet.shots.find(shot => shot.hit.intersectsSphere(enemy.hit))
 }
 
 function updateShots() {
