@@ -199,5 +199,9 @@ const gameLoop = () => {
 }
 
 window.addEventListener('mousemove', updateJoystick)
+window.addEventListener('click', shooting);
+window.addEventListener('keydown', e =>{
+  return ((e.key == ' ' || e.key == 'Enter') && shooting())
+});
 
 gameLoop()
