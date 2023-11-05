@@ -132,6 +132,12 @@ function createEnemies() {
   let distance = 5
   let horizontalLimit = 5
   return Array.from({ length: QTD_ENEMIES }).map(() => {
+  
+    let explodeMaterial = new THREE.MeshBasicMaterial({ map: texture, transparent: true });
+    let exploGeo = new THREE.PlaneGeometry(4, 4, 1, 1);
+    let texture = explosionTexture.clone();
+    texture.needsUpdate = true;
+
     enemy.position.z = -(Math.random() * distance + distance)
     enemy.position.x = (Math.random() * (Math.random() > .5 ? 1 : -1));
     enemy.position.x *= horizontalLimit
@@ -142,7 +148,11 @@ function createEnemies() {
     let enemyClone = {
       model: enemy.clone(),
       hit: hitArea,
-      dead: false
+      dead: false,
+      explosion:{
+        sprite: new TextureAnimator(texture, 8, 6, 48, 50, THREE),
+        model: new THREE.Mesh(exploGeo, explodeMaterial),
+      }
     }
     scene.add(enemyClone.model)
     return enemyClone
