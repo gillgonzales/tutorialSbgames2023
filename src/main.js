@@ -86,7 +86,7 @@ function shooting() {
       model: sphere.clone(),
       hit: hitSphere.clone(),
     }
-    shot.hit.radius = hitRadius / 2
+    shot.hit.radius = HIT_RADIUS / 2
     shot.model.material.transparent = true
     shot.model.material.opacity = .5
     shot.model.material.emissive = new THREE.Color(0xffff00)
