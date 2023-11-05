@@ -69,12 +69,13 @@ enemy.rotateY(3.14)
 // enemy.position.z = -1
 // scene.add(enemy)
 
-const enemies = createEnemies()
-
 const sphere_geometry = new THREE.SphereGeometry(HIT_RADIUS / 2, 64, 32);
 const sphereColor = new THREE.MeshStandardMaterial({ color: 0xffff00 });
 const sphere = new THREE.Mesh(sphere_geometry, sphereColor);
 const hitSphere = new THREE.Sphere(new THREE.Vector3(0, 0, 0), HIT_RADIUS)
+
+
+const enemies = createEnemies()
 
 function shooting() {
   if (TOTAL_SHOTS > 0) {
@@ -205,9 +206,15 @@ const gameLoop = () => {
   skyBox.position.z += .0001
   moveJet()
   updateShots()
-  enemies.forEach((e) => moveEnemy(e))
+  enemies.forEach((e) =>{ 
+    moveEnemy(e)
+    if(!e.dead && shootDown(e)){
+      console.error("COLIDIU!!!")
+      GAME_PAUSED = true;
+    }
+  })
   renderer.render(scene, camera)
-  requestAnimationFrame(gameLoop)
+  !GAME_PAUSED && requestAnimationFrame(gameLoop)
 }
 
 window.addEventListener('mousemove', updateJoystick)
