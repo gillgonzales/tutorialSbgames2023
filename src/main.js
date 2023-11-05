@@ -84,6 +84,24 @@ function createEnemies() {
   })
 }
 
+function moveEnemy(enemy) {
+  let velocity = .16
+  let distance = enemy.model.position.z
+  if (!enemy.dead) {
+    if (distance > 30) {
+      enemy.model.position.z = -(Math.random() * 100 + 100)
+      enemy.model.position.x = Math.random() * (Math.random() > .5 ? 5 : -5);
+    } else if (distance > -40) {
+      velocity += .48
+    } else if (distance > -30) {
+      velocity += .32
+    } else if (distance > -10) {
+      velocity += .24
+    }
+    enemy.model.position.z += velocity
+  }
+}
+
 function updateJoystick(event) {
   if (!event.buttons) {
     jetJoystick.x = event.clientX
