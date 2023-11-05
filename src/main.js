@@ -75,6 +75,32 @@ const sphereColor = new THREE.MeshStandardMaterial({ color: 0xffff00 });
 const sphere = new THREE.Mesh(sphere_geometry, sphereColor);
 const hitSphere = new THREE.Sphere(new THREE.Vector3(0, 0, 0), HIT_RADIUS)
 
+function shooting() {
+  if (TOTAL_SHOTS > 0) {
+    if (jet.shots.length > 50)
+      return 0
+    TOTAL_SHOTS--
+    const shot = {
+      rx: jet.rotation.z,
+      ry: jet.rotation.x,
+      model: sphere.clone(),
+      hit: hitSphere.clone(),
+    }
+    shot.hit.radius = hitRadius / 2
+    shot.model.material.transparent = true
+    shot.model.material.opacity = .5
+    shot.model.material.emissive = new THREE.Color(0xffff00)
+    shot.model.material.roughness = .5
+    shot.model.material.metalness = 1
+    shot.model.position.set(...jet.position)
+    shot.hit.center.copy(shot.model.position)
+    scene.add(shot.model)
+    jet.shots.push(shot)
+  } else {
+    console.warn("ACABOU A MUNIÇÃO!!!")
+  }
+}
+
 function createEnemies() {
   let distance = 5
   let horizontalLimit = 5
