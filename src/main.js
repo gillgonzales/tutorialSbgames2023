@@ -246,9 +246,9 @@ const gameLoop = () => {
   enemies.forEach((e) =>{ 
     moveEnemy(e)
     if(!e.dead && shootDown(e)){
-      console.error("COLIDIU!!!")
       showEnemyHit(e)
-      // GAME_OVER = true;
+      SCORE+=10
+      console.info('Pontos:',SCORE)
     }
   })
   renderer.render(scene, camera)
