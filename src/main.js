@@ -74,6 +74,8 @@ const sphereColor = new THREE.MeshStandardMaterial({ color: 0xffff00 });
 const sphere = new THREE.Mesh(sphere_geometry, sphereColor);
 const hitSphere = new THREE.Sphere(new THREE.Vector3(0, 0, 0), HIT_RADIUS)
 
+const explosionTexture = new THREE.TextureLoader().load('img/textures/explosion.png');
+const explosionlight = new THREE.PointLight(0xff3300, 1, 5);
 
 const enemies = createEnemies()
 
