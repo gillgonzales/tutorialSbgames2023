@@ -3,6 +3,7 @@ import { createSkyBox } from './skybox'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 
+const QTD_ENEMIES = 5
 
 const renderer = new THREE.WebGLRenderer({ antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
@@ -70,7 +71,7 @@ const enemies = createEnemies()
 function createEnemies() {
   let distance = 5
   let horizontalLimit = 5
-  return Array.from({ length: 5 }).map(() => {
+  return Array.from({ length: QTD_ENEMIES }).map(() => {
     enemy.position.z = -(Math.random() * distance + distance)
     enemy.position.x = (Math.random() * (Math.random() > .5 ? 1 : -1));
     enemy.position.x *= horizontalLimit
