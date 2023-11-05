@@ -4,6 +4,8 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
 
 const QTD_ENEMIES = 5
+const HIT_RADIUS = .125
+let TOTAL_SHOTS = 1000
 
 const renderer = new THREE.WebGLRenderer({ antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
