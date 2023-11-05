@@ -142,6 +142,7 @@ const gameLoop = () => {
   skyBox.rotation.y += .0001
   skyBox.position.z += .0001
   moveJet()
+  enemies.forEach((e)=>moveEnemy(e))
   renderer.render(scene, camera)
   requestAnimationFrame(gameLoop)
 }
