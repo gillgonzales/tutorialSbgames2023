@@ -132,7 +132,7 @@ function updateShots() {
 }
 
 function createEnemies() {
-  let distance = 5
+  let distance = 100
   let horizontalLimit = 5
   return Array.from({ length: QTD_ENEMIES }).map(() => {
     let texture = explosionTexture.clone();
@@ -176,6 +176,8 @@ function moveEnemy(enemy) {
   let distance = enemy.model.position.z
   if (!enemy.dead) {
     if (distance > 30) {
+      LOST_ENEMIES++
+      console.warn('Inimigos perdidos:',LOST_ENEMIES)
       enemy.model.position.z = -(Math.random() * 100 + 100)
       enemy.model.position.x = Math.random() * (Math.random() > .5 ? 5 : -5);
     } else if (distance > -40) {
