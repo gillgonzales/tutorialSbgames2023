@@ -50,6 +50,19 @@ const plight = new THREE.PointLight(0xffffff, 500, 50,.5);
 plight.position.set(0, 25, 10);
 scene.add(plight);
 
+const enemyMtlFile = 'f15c_e.mtl'
+const enemyMtlLoader = new MTLLoader(manager);
+const enemyObjLoader = new OBJLoader();
+
+enemyMtlLoader.setPath(jetPath)
+enemyObjLoader.setPath(jetPath)
+enemyObjLoader.setMaterials(await enemyMtlLoader.loadAsync(enemyMtlFile))
+
+const enemy = await enemyObjLoader.loadAsync(objFile)
+enemy.scale.setScalar(.5)
+enemy.position.y = .4
+enemy.rotateY(3.14)
+
 function updateJoystick(event) {
   if (!event.buttons) {
     jetJoystick.x = event.clientX
