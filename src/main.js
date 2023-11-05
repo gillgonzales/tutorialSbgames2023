@@ -73,6 +73,7 @@ const enemies = createEnemies()
 const sphere_geometry = new THREE.SphereGeometry(HIT_RADIUS / 2, 64, 32);
 const sphereColor = new THREE.MeshStandardMaterial({ color: 0xffff00 });
 const sphere = new THREE.Mesh(sphere_geometry, sphereColor);
+const hitSphere = new THREE.Sphere(new THREE.Vector3(0, 0, 0), HIT_RADIUS)
 
 function createEnemies() {
   let distance = 5
