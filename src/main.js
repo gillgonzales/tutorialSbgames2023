@@ -62,6 +62,8 @@ const enemy = await enemyObjLoader.loadAsync(objFile)
 enemy.scale.setScalar(.5)
 enemy.position.y = .4
 enemy.rotateY(3.14)
+enemy.position.z = -1
+scene.add(enemy)
 
 function updateJoystick(event) {
   if (!event.buttons) {
