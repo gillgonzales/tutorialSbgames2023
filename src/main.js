@@ -60,6 +60,32 @@ function updateJoystick(event) {
   }
 }
 
+function moveJet() {
+  if (jet
+    && jetJoystick.x
+    && jetJoystick.y) {
+
+    let wh = window.innerHeight
+    let ww = window.innerWidth
+
+    jet.rotation.x += (jetJoystick.y - wh / 2) / wh / 100
+
+    if (Math.abs(jet.position.x) > 1) {
+      jet.position.x = jet.position.x / Math.abs(jet.position.x)
+    } else {
+      jet.rotation.z -= (jetJoystick.x - ww / 2) / ww / 10
+    }
+
+    if (Math.abs(jet.rotation.z) != 0) {
+      jet.position.x += (jetJoystick.x - ww / 2) / ww / 10
+      jet.rotation.y = jet.rotation.z / 2.5
+    }
+
+    if (Math.abs(jet.rotation.y) > .5)
+      jet.rotation.y = .5 * (jet.rotation.y / Math.abs(jet.rotation.y))
+  }
+}
+
 const gameLoop=()=>{
   skyBox.rotation.y += .0001
   skyBox.position.z += .0001
