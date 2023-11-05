@@ -46,6 +46,10 @@ scene.add(jet)
 const light = new THREE.AmbientLight(0xffffff, 10);
 scene.add(light);
 
+const plight = new THREE.PointLight(0xffffff, 500, 50,.5);
+plight.position.set(0, 25, 10);
+scene.add(plight);
+
 const gameLoop=()=>{
   skyBox.rotation.y += .0001
   skyBox.position.z += .0001
