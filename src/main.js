@@ -66,4 +66,7 @@ const gameLoop=()=>{
   renderer.render(scene, camera)
 	requestAnimationFrame(gameLoop)
 }
+
+window.addEventListener('mousemove', updateJoystick)
+
 gameLoop()
