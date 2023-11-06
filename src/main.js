@@ -240,6 +240,19 @@ function moveJet() {
   }
 }
 
+function isFinish() {
+  if (LOST_ENEMIES > 2 * QTD_ENEMIES || TOTAL_SHOTS <= 0) {
+    console.error('GAMEOVER!!!', SCORE, TOTAL_SHOTS, LOST_ENEMIES)
+    console.table({
+      'PONTOS': SCORE,
+      'MUNIÇÃO': TOTAL_SHOTS,
+      'INIMIGOS PERDIDOS': LOST_ENEMIES
+    })
+    return true
+  }
+  return false
+}
+
 const gameLoop = () => {
   skyBox.rotation.y += .0001
   skyBox.position.z += .0001
@@ -254,6 +267,7 @@ const gameLoop = () => {
     }
   })
   renderer.render(scene, camera)
+  GAME_OVER = isFinish()
   !GAME_OVER && requestAnimationFrame(gameLoop)
 }
 
