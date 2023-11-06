@@ -1,13 +1,26 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/img/fav.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TutorialSbgames2023</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="src/main.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/img/fav.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="styles/game.css">
+  <title>TutorialSbgames2023</title>
+</head>
+<body>
+  <div id="stats-modal" class="w3-modal">
+    <div class="w3-modal-content">
+      <div class="w3-container">
+        <span class="w3-button w3-display-topright"
+        onclick="document.getElementById('stats-modal').style.display='none'">&times;</span>
+        <p class="w3-panel w3-center w3-margin-bottom" id="stats-results"></p>
+        <span class="w3-button w3-display-bottommiddle"
+          onclick="window.location.reload()" >RESTART</span>
+      </div>
+    </div>
+  </div>
+  <div id="game"></div>
+  <script type="module" src="src/main.js"></script>
+</body>
 </html>
