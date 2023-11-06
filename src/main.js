@@ -13,7 +13,7 @@ let SCORE = 0
 
 const renderer = new THREE.WebGLRenderer({ antialias: true })
 renderer.setSize(window.innerWidth, window.innerHeight)
-document.body.appendChild(renderer.domElement)
+document.querySelector('#game').appendChild(renderer.domElement)
 
 const scene = new THREE.Scene()
 scene.background = new THREE.Color(0x000000)
@@ -248,9 +248,17 @@ function isFinish() {
       'MUNIÇÃO': TOTAL_SHOTS,
       'INIMIGOS PERDIDOS': LOST_ENEMIES
     })
+    showModal()
     return true
   }
   return false
+}
+
+function showModal(){
+  //mostra modal de statisticas
+  document.querySelector('#stats-modal').style.display='block'
+  document.querySelector('#stats-results').innerHTML=`
+    PONTOS: ${SCORE} | MUNIÇÃO: ${TOTAL_SHOTS} | INIMIGOS PERDIDOS: ${LOST_ENEMIES}`
 }
 
 const gameLoop = () => {
@@ -274,6 +282,7 @@ const gameLoop = () => {
 window.addEventListener('mousemove', updateJoystick)
 window.addEventListener('click', shooting);
 window.addEventListener('keydown', e =>{
+  GAME_OVER && showModal()
   return ((e.key == ' ' || e.key == 'Enter') && shooting())
 });
 
